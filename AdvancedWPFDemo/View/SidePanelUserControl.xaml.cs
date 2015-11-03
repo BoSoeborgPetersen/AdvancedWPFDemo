@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace AdvancedWPFDemo
+namespace _02350AdvancedDemo.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SidePanelUserControl.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class SidePanelUserControl : UserControl
     {
-        public MainWindow()
+        public SidePanelUserControl()
         {
             InitializeComponent();
         }

@@ -1,0 +1,33 @@
+﻿<Application x:Class="_02350AdvancedDemo.View.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:View="clr-namespace:_02350AdvancedDemo.View"
+             xmlns:ViewModel="clr-namespace:_02350AdvancedDemo.ViewModel"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Themes/ShinyBlue.xaml"/>
+                <ResourceDictionary>
+                    <ViewModel:ViewModelLocator x:Key="Locator" />
+                    <DataTemplate DataType="{x:Type ViewModel:CircleViewModel}">
+                        <Canvas>
+                            <View:CircleUserControl/>
+                        </Canvas>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:SquareViewModel}">
+                        <Canvas>
+                            <View:SquareUserControl/>
+                        </Canvas>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type ViewModel:LineViewModel}">
+                        <Canvas>
+                            <View:LineUserControl/>
+                        </Canvas>
+                    </DataTemplate>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

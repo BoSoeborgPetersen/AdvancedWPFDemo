@@ -1,0 +1,60 @@
+﻿<RibbonWindow x:Class="_02350AdvancedDemo.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:ViewModel="clr-namespace:_02350AdvancedDemo.ViewModel"
+        xmlns:View="clr-namespace:_02350AdvancedDemo.View"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        DataContext="{Binding Source={StaticResource Locator}, Path=Main}"
+        Title="02350 Advanced Demo" Height="600" Width="800" Icon="/Icon.ico">
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding NewDiagramCommand}" Gesture="CTRL+N"/>
+        <KeyBinding Command="{Binding OpenDiagramCommand}" Gesture="CTRL+O"/>
+        <KeyBinding Command="{Binding SaveDiagramCommand}" Gesture="CTRL+S"/>
+        <KeyBinding Command="{Binding UndoCommand}" Gesture="CTRL+Z"/>
+        <KeyBinding Command="{Binding RedoCommand}" Gesture="CTRL+Y"/>
+        <KeyBinding Command="{Binding CutCommand}" Gesture="CTRL+X"/>
+        <KeyBinding Command="{Binding CopyCommand}" Gesture="CTRL+C"/>
+        <KeyBinding Command="{Binding PasteCommand}" Gesture="CTRL+V"/>
+    </Window.InputBindings>
+    <DockPanel>
+        <View:Menu DockPanel.Dock="Top"/>
+        <View:SidePanelUserControl/>
+        <StackPanel DockPanel.Dock="Bottom">
+            <Slider x:Name="zoomSlider" ToolTip="Zoom" Value="1" Minimum="0.1" Maximum="10"/>
+        </StackPanel>
+        <Grid>
+            <Grid.Background>
+                <VisualBrush TileMode="Tile"
+                             Viewport="0,0,40,40" ViewportUnits="Absolute" 
+                             Viewbox="0,0,40,40" ViewboxUnits="Absolute">
+                    <VisualBrush.Visual>
+                        <Rectangle Stroke="Black" StrokeThickness="0.05" Height="40" Width="40"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </Grid.Background>
+            <Grid.LayoutTransform>
+                <ScaleTransform CenterX="0" CenterY="0" ScaleX="{Binding ElementName=zoomSlider, Path=Value}" ScaleY="{Binding ElementName=zoomSlider, Path=Value}"/>
+            </Grid.LayoutTransform>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <cmd:EventToCommand Command="{Binding MouseDownCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseMove">
+                    <cmd:EventToCommand Command="{Binding MouseMoveCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+                <i:EventTrigger EventName="MouseLeftButtonUp">
+                    <cmd:EventToCommand Command="{Binding MouseUpCanvasCommand}" PassEventArgsToCommand="True"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <ItemsControl ItemsSource="{Binding Lines}"/>
+            <ItemsControl ItemsSource="{Binding Shapes}"/>
+            <Canvas>
+                <Border Canvas.Left="{Binding SelectionBoxX}" Canvas.Top="{Binding SelectionBoxY}" Width="{Binding SelectionBoxWidth}" Height="{Binding SelectionBoxHeight}"
+                        BorderBrush="Black" BorderThickness="2">
+                    <Rectangle Fill="Blue" Opacity=".2"/>
+                </Border>
+            </Canvas>
+        </Grid>
+    </DockPanel>
+</RibbonWindow>
