@@ -298,9 +298,6 @@
     <Resource Include="Images\Zoom-Out.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
